@@ -1,7 +1,7 @@
 import requests
 from parsel import Selector
 
-for i in range(1,3):
+for i in range(1,51):
     r=requests.get(f'https://books.toscrape.com/catalogue/page-{i}.html')
 
     response=Selector(r.text)
@@ -10,7 +10,7 @@ for i in range(1,3):
         title=list.xpath('.//h3/a/text()').get()
         price = list.xpath('.//p[@class="price_color"]/text()').get()
         stock = list.xpath('.//p[@class="instock availability"]/text()').getall()[1].strip()
-        rating = list.xpath('.//p[contains(@class, "star-rating")]/@class').get().split()[-1]
+        rating = list.xpath('.//p/@class').get().split()[1]
         image_url = list.xpath('.//img/@src').get()
         image_url = image_url.replace('../', '')
 
